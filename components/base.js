@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function() {
     header.innerHTML += `
     <header>
         <nav class="nav-wrapper amber darken-1">
-            <a class="brand-logo center" href="/kinoko-tools/index.html">キノ伝ツール保管庫</a>
+            <a class="brand-logo center" href="/kinoko-tools/index.html">キノ伝ほげぇツール</a>
         </nav>
     </header>
     `
