@@ -388,5 +388,65 @@
     "efficacy_duration": "5",
     "act_duration": "1",
     "skill_image_path": ""
+  },
+  {
+    "id": "40",
+    "rarity_name": "発動技",
+    "rarity_color": "orange",
+    "skill_name": "万剣帰宗",
+    "require_point": "5?",
+    "efficacy_duration": "5",
+    "act_duration": "1",
+    "skill_image_path": ""
+  },
+  {
+    "id": "41",
+    "rarity_name": "発動技",
+    "rarity_color": "orange",
+    "skill_name": "斧砕千魂",
+    "require_point": "5?",
+    "efficacy_duration": "5",
+    "act_duration": "1",
+    "skill_image_path": ""
+  },
+  {
+    "id": "42",
+    "rarity_name": "発動技",
+    "rarity_color": "orange",
+    "skill_name": "鑽心煉骨",
+    "require_point": "5?",
+    "efficacy_duration": "5",
+    "act_duration": "1",
+    "skill_image_path": ""
+  },
+  {
+    "id": "43",
+    "rarity_name": "発動技",
+    "rarity_color": "orange",
+    "skill_name": "青羽逐日",
+    "require_point": "5?",
+    "efficacy_duration": "5",
+    "act_duration": "1",
+    "skill_image_path": ""
+  },
+  {
+    "id": "44",
+    "rarity_name": "発動技",
+    "rarity_color": "orange",
+    "skill_name": "鶴唳遊鳴",
+    "require_point": "5?",
+    "efficacy_duration": "5",
+    "act_duration": "1",
+    "skill_image_path": ""
+  },
+  {
+    "id": "45",
+    "rarity_name": "発動技",
+    "rarity_color": "orange",
+    "skill_name": "星河入夢",
+    "require_point": "5?",
+    "efficacy_duration": "5",
+    "act_duration": "1",
+    "skill_image_path": ""
   }
 ]
