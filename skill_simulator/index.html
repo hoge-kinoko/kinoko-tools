@@ -9,6 +9,35 @@
 
 <div id="header"></div>
 
+<article class="container row pt-5" style="gap: 1em;">
+    <section class="col s12 card">
+        <div class="card-content">
+            <span class="card-title">使い方</span>
+            <p>aaaaaaaaaa</p>
+        </div>
+    </section>
+
+    <section class="col s12 card">
+        <div class="card-content">
+            <span class="card-title">技能選択</span>
+            <form onsubmit="return false;" class="row" id="skill_select">
+            </form>
+        </div>
+    </section>
+</article>
+
 <script type="text/javascript" src="../components/base.js" id="base_js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@materializecss/materialize@2.0.3-alpha/dist/js/materialize.min.js"></script>
+
+<script type="text/javascript" src="index.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var elems = document.querySelectorAll('select');
+        var instances = M.FormSelect.init(elems, {
+            // specify options here
+        });
+    });
+
+</script>
 </body>
 </html>
