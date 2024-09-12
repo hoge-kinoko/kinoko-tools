@@ -13,25 +13,43 @@
     <section class="col s12 card">
         <div class="card-content">
             <h1 class="card-title mt-0">使い方</h1>
-            <p>入力欄に数値を入れて計算ボタンを押すだけでガチャなどの回数を計算できます。</p>
+            <p>
+                入力欄に数値を入れて計算ボタンを押すだけでガチャなどの回数を計算できます。
+            </p>
         </div>
     </section>
 
     <section class="col s12 card mt-5">
         <div class="card-content">
             <h1 class="card-title mt-0">技能・仲間突破</h1>
+
             <form class="row" style="gap: 1em;" onsubmit="return false">
-                <div class="s6 input-field">
-                    <input id="ticket_num" type="number" step="1" placeholder="例: 2000">
+                <div class="s12 m6 input-field">
+                    <input id="ticket_num" type="number" step="1" min="0">
                     <label for="ticket_num">所持チケット枚数</label>
                 </div>
-                <div class="s6 input-field">
-                    <input id="stone_num" type="number" step="1" placeholder="例: 1000000">
+                <div class="s12 m6 input-field">
+                    <input id="stone_num" type="number" step="1" min="0">
                     <label for="stone_num">所持赤ダイヤ数</label>
                 </div>
 
+                <div class="s12 input-field ml-2">
+                    <p>
+                        <label>
+                            <input id="level" type="checkbox" class="filled-in" checked/>
+                            <span>ガチャレベル 15</span>
+                        </label>
+                    </p>
+                </div>
+
                 <button id="calc_btn" class="btn s12">計算</button>
+
             </form>
+
+            <br>
+            <p>
+                ※チケット、ダイヤ毎に計算するのでチケットとダイヤ同時消費はカウントしません。
+            </p>
             <br>
             <div id="result">
             </div>
