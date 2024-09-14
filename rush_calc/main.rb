@@ -9,7 +9,7 @@ class EventCalc
   ].freeze
 
   STONE_COURSES = [
-    { cost: 16_000, course: 999, level: 15},
+    { cost: 16_000, course: 999, level: 15 },
     { cost: 600, course: 35, level: 1 },
     { cost: 300, course: 15, level: 1 },
   ].freeze
@@ -42,10 +42,10 @@ class EventCalc
     end
   end
 
-  def delimited(n)
-    return n.to_s if n.abs.to_s.length <= 3
+  def delimited(number)
+    return number.to_s if number.abs.to_s.length <= 3
 
-    n.to_s.reverse.scan(/.{1,3}/).join(",").reverse
+    number.to_s.reverse.scan(/.{1,3}/).join(",").reverse
   end
 
   def create_elem(tag, parent)
@@ -53,7 +53,7 @@ class EventCalc
 
     yield(elem) if block_given?
 
-    parent.appendChild(elem) if parent
+    parent&.appendChild(elem)
 
     elem
   end
@@ -150,7 +150,7 @@ class EventCalc
 
     thead = create_elem("thead", table)
     create_elem("tr", thead) do |tr|
-      ["#", "消化数", "差分", "必要アイテム数"].each do |text|
+      %w[# 消化数 差分 必要アイテム数].each do |text|
         create_elem("th", tr) do |th|
           th[:innerText] = text
         end
@@ -174,7 +174,7 @@ class EventCalc
       create_elem("td", tr) do |td|
         next unless target.positive?
 
-        td[:innerText] = "#{delimited(@total_draw_count - target)}"
+        td[:innerText] = delimited(@total_draw_count - target).to_s
       end
 
       create_elem("td", tr) do |td|
@@ -187,7 +187,7 @@ class EventCalc
 
         text = []
         [
-          ["チケット",  ticket_result, TICKET_COURSES[-1]],
+          ["チケット", ticket_result, TICKET_COURSES[-1]],
           ["ダイヤ", stone_result, STONE_COURSES[-1]],
         ].each do |item_name, result, min_course|
           fraction = diff_point - result[:total_draw_count]
