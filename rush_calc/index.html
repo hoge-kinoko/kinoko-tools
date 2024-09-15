@@ -76,6 +76,11 @@
 
 <script type="text/javascript" src="../components/base.js" id="base_js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@ruby/3.3-wasm-wasi@latest/dist/browser.script.iife.js"></script>
-<script type="text/ruby" src="main.rb"></script>
+<script type="text/ruby" src="./root_box/calculator.rb"></script>
+<script type="text/ruby" src="./view.rb"></script>
+<script type="text/ruby" src="./root_box/view.rb"></script>
+<script type="text/ruby">
+    RootBox::View.new
+</script>
 </body>
 </html>

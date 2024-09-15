@@ -1,95 +1,7 @@
 require "js"
 
-module RushCalc
-  # 技能・仲間突破
-  class RootBox
-    # コストが大きいものから計算
-    TICKET_COURSES = [
-      { cost: 800, course: 999, level: 15 },
-      { cost: 30, course: 35, level: 1 },
-      { cost: 15, course: 15, level: 1 },
-    ].freeze
-
-    STONE_COURSES = [
-      { cost: 16_000, course: 999, level: 15 },
-      { cost: 600, course: 35, level: 1 },
-      { cost: 300, course: 15, level: 1 },
-    ].freeze
-
-    def initialize(ticket, stone, level)
-      @ticket = ticket
-      @stone = stone
-      @level = level
-    end
-
-    def calc_by_cost(courses, cost)
-      result = {
-        total_draw_count: 0,
-        total_cost: 0,
-        draw_count_by_course: {},
-      }
-
-      courses.each do |course|
-        # レベルが足りていなければスキップ
-        next if @level < course[:level]
-
-        draw_count = ((cost - result[:total_cost]) / course[:cost]).floor
-
-        result[:draw_count_by_course][course[:course]] = draw_count
-        result[:total_draw_count] += draw_count * course[:course]
-        result[:total_cost] += draw_count * course[:cost]
-      end
-
-      result
-    end
-
-    def calc_by_draw_count(courses, draw_count)
-      result = {
-        total_draw_count: 0,
-        total_cost: 0,
-        draw_count_by_course: {},
-      }
-
-      courses.each do |course|
-        # レベルが足りていなければスキップ
-        next if @level < course[:level]
-
-        count = ((draw_count - result[:total_draw_count]) / course[:course]).floor
-
-        result[:draw_count_by_course][course[:course]] = count
-        result[:total_cost] += count * course[:cost]
-        result[:total_draw_count] += count * course[:course]
-      end
-
-      result
-    end
-  end
-end
-
-class View
-  def document
-    JS.global["document"]
-  end
-
-  def delimited(number)
-    return number.to_s if number.abs.to_s.length <= 3
-
-    number.to_s.reverse.scan(/.{1,3}/).join(",").reverse
-  end
-
-  def create_elem(tag, parent)
-    elem = document.createElement(tag)
-
-    yield(elem) if block_given?
-
-    parent&.appendChild(elem)
-
-    elem
-  end
-end
-
-module RushView
-  class RootBox < View
+module RootBox
+  class View < View
     def initialize
       super
       add_calc_btn_event
@@ -114,7 +26,7 @@ module RushView
     end
 
     def calculator
-      RushCalc::RootBox.new(ticket_num, stone_num, level)
+      RootBox::Calculator.new(ticket_num, stone_num, level)
     end
 
     def init_result
@@ -146,8 +58,8 @@ module RushView
         span[:innerText] = "計算結果"
       end
 
-      ticket_result = @calculator.calc_by_cost(RushCalc::RootBox::TICKET_COURSES, ticket_num)
-      stone_result = @calculator.calc_by_cost(RushCalc::RootBox::STONE_COURSES, stone_num)
+      ticket_result = @calculator.calc_by_cost(RootBox::Calculator::TICKET_COURSES, ticket_num)
+      stone_result = @calculator.calc_by_cost(RootBox::Calculator::STONE_COURSES, stone_num)
 
       table = create_elem("table", content)
       tbody = create_elem("tbody", table)
@@ -228,12 +140,12 @@ module RushView
 
           diff_count = (total_draw_count - target).abs
 
-          ticket_result = @calculator.calc_by_draw_count(RushCalc::RootBox::TICKET_COURSES, diff_count)
-          stone_result = @calculator.calc_by_draw_count(RushCalc::RootBox::STONE_COURSES, diff_count)
+          ticket_result = @calculator.calc_by_draw_count(RootBox::Calculator::TICKET_COURSES, diff_count)
+          stone_result = @calculator.calc_by_draw_count(RootBox::Calculator::STONE_COURSES, diff_count)
 
           text = [
-            ["チケット", ticket_result, RushCalc::RootBox::TICKET_COURSES[-1]],
-            ["ダイヤ", stone_result, RushCalc::RootBox::STONE_COURSES[-1]],
+            ["チケット", ticket_result, RootBox::Calculator::TICKET_COURSES[-1]],
+            ["ダイヤ", stone_result, RootBox::Calculator::STONE_COURSES[-1]],
           ].each_with_object([]) do |(item_name, result, min_course), texts|
             fraction = diff_count - result[:total_draw_count]
             cost = result[:total_cost]
@@ -255,7 +167,3 @@ module RushView
     end
   end
 end
-
-
-
-RushView::RootBox.new
