@@ -49,16 +49,16 @@
                     目標の消費数を入力してください。差分から必要アイテム数を算出します。
                 </p>
                 <div class="s12 m4 input-field">
-                    <input type="number" id="target-1">
-                    <label for="target-1">目標1</label>
+                    <input type="number" id="goal-1">
+                    <label for="goal-1">目標1</label>
                 </div>
                 <div class="s12 m4 input-field">
-                    <input type="number" id="target-2">
-                    <label for="target-2">目標2</label>
+                    <input type="number" id="goal-2">
+                    <label for="goal-2">目標2</label>
                 </div>
                 <div class="s12 m4 input-field">
-                    <input type="number" id="target-3">
-                    <label for="target-3">目標3</label>
+                    <input type="number" id="goal-3">
+                    <label for="goal-3">目標3</label>
                 </div>
 
                 <button id="calc_btn" class="btn s12">計算</button>
@@ -76,6 +76,11 @@
 
 <script type="text/javascript" src="../components/base.js" id="base_js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@ruby/3.3-wasm-wasi@latest/dist/browser.script.iife.js"></script>
-<script type="text/ruby" src="main.rb"></script>
+<script type="text/ruby" src="./root_box/calculator.rb"></script>
+<script type="text/ruby" src="./view.rb"></script>
+<script type="text/ruby" src="./root_box/view.rb"></script>
+<script type="text/ruby">
+    RootBox::View.new
+</script>
 </body>
 </html>
