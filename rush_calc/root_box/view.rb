@@ -7,6 +7,8 @@ module RootBox
       add_calc_btn_event
     end
 
+    private
+
     def ticket_num
       document.getElementById("ticket_num")[:value].to_i
     end
