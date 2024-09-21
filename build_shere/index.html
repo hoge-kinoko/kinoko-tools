@@ -1,20 +1,83 @@
 <!doctype html>
-<html lang="ja">
+<html lang="ja" theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+
     <title>ビルド保存・共有ツール</title>
 </head>
 <body>
 <div id="header"></div>
 
 <article class="container row pt-5">
+    <h1 class="s12">ビルド共有ツール</h1>
     <section class="col s12 card">
+        <div class="card-content">
+            <span class="card-title">使い方</span>
+        </div>
+    </section>
+
+    <section class="col s12 card mt-5">
+        <div class="card-content">
+            <span class="card-title">技能設定</span>
+
+            <form class="row" style="gap: 1em;" onsubmit="return false" id="skill-select">
+                <div class="input-field col s12 m6">
+                    <select id="skill-select-1" class="icons">
+                    </select>
+                    <label for="skill-select-1">技能1</label>
+                </div>
+                <div class="input-field col s12 m6">
+                    <select id="skill-select-2" class="icons">
+                    </select>
+                    <label for="skill-select-2">技能2</label>
+                </div>
+                <div class="input-field col s12 m6">
+                    <select id="skill-select-3" class="icons">
+                    </select>
+                    <label for="skill-select-3">技能3</label>
+                </div>
+                <div class="input-field col s12 m6">
+                    <select id="skill-select-4" class="icons">
+                    </select>
+                    <label for="skill-select-4">技能4</label>
+                </div>
+                <div class="input-field col s12 m6">
+                    <select id="skill-select-5" class="icons">
+                    </select>
+                    <label for="skill-select-5">技能5</label>
+                </div>
+
+                <div class="input-field col s12">
+                    <select id="form-select-5" class="icons">
+                        <option value="" disabled selected>Choose your option</option>
+                        <option value="" data-icon="../images/skill_icon/1.png" class="left">example 1</option>
+                    </select>
+                    <label for="form-select-5">Images in select</label>
+                </div>
+            </form>
+        </div>
     </section>
 </article>
 <script type="text/javascript" src="../components/base.js" id="base_js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@ruby/3.3-wasm-wasi@latest/dist/browser.script.iife.js"></script>
+<script type="text/ruby" src="./skill.rb"></script>
+<script type="text/ruby" src="../components/view.rb"></script>
+<script type="text/ruby" src="./view.rb"></script>
+<script type="text/ruby">
+    BuildShare::View.new
+</script>
 
+<script>
+    window.addEventListener('load', function(){
+        setTimeout(function () {
+            console.log("hogeee")
+            var elems = document.querySelectorAll('select');
+            M.FormSelect.init(elems, {});
+
+        }, 1000)
+    })
+</script>
 </body>
 </html>
