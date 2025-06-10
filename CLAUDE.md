@@ -56,9 +56,8 @@ RubyツールはMVCパターンを使用:
 - `Gemfile` - 開発依存関係のみ（rubocop）
 
 ### 現在の開発状況
-- `feature/quiz`ブランチで作業中
-- クイズツールをJavaScriptからRuby WASMに移行中
-- `quiz_ruby/`に新しいRuby実装が含まれる
+- メインブランチで作業中
+- クイズツールのRuby WASM版が完成（`quiz_ruby/`）
 
 ## 開発パターン
 
@@ -85,14 +84,14 @@ RubyツールはMVCパターンを使用:
 - 順次読み込まれる複数のRubyファイルを使用
 - CalculatorとViewクラスによるオブジェクト指向設計
 
-### クイズツール
-- `quiz/` - 元のJavaScript版
-- `quiz_ruby/` - 新しいRuby WASM版（開発中）
+### クイズツール（`quiz_ruby/`）
+- Ruby WASM版で実装、統計機能付き
 - ふりがなサポート付きのJSON形式クイズデータ
+- モダンなカードデザインとアニメーション
+- LocalStorageを使用した統計データの永続化
+- 10問セッション単位での結果表示と記録管理
+- MVC構造：Statistics、Quiz、Viewクラスによる分離
 
-### スケジュールツール
-- HTML/CSSは完成しているが機能は無効
-- ゲームイベントスケジューリング用途
 
 ## デプロイ
 - GitHub Pages経由での静的ホスティング
