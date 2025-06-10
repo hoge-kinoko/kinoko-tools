@@ -1,0 +1,24 @@
+/* モジュール化されたクイズツールのスタイル */
+
+@import url('./styles/base.css');
+@import url('./styles/quiz.css');
+@import url('./styles/statistics.css');
+@import url('./styles/results.css');
+@import url('./styles/controls.css');
+@import url('./styles/responsive.css');
+
+/* プログレスバー（将来の実装用） */
+.progress-bar {
+    height: 4px;
+    background-color: #e0e0e0;
+    border-radius: 2px;
+    margin-bottom: 30px;
+    overflow: hidden;
+}
+
+.progress-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #ffa726 0%, #ff9800 100%);
+    border-radius: 2px;
+    transition: width 0.3s ease;
+}
