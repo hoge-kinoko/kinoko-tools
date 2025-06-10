@@ -26,8 +26,8 @@ module Quiz
       @current_session << answer_record
       @records << answer_record
       
-      # 50問より多い場合は古い記録を削除
-      @records = @records.last(50) if @records.length > 50
+      # 上限を超える場合は古い記録を削除
+      @records = @records.last(Quiz::Constants::RECORDS_LIMIT) if @records.length > Quiz::Constants::RECORDS_LIMIT
       
       save_records
     end
@@ -74,12 +74,12 @@ module Quiz
     
     # セッションが完了したかチェック
     def session_completed?
-      @current_session.length >= 10
+      @current_session.length >= Quiz::Constants::SESSION_SIZE
     end
     
     # 現在のセッションを完了として記録
     def complete_current_session
-      return if @current_session.length != 10
+      return if @current_session.length != Quiz::Constants::SESSION_SIZE
       
       session_result = current_session_result
       session_data = {
@@ -91,14 +91,14 @@ module Quiz
       
       @sessions << session_data
       
-      # 最新10セッションのみ保持
-      @sessions = @sessions.last(10) if @sessions.length > 10
+      # 最新セッションのみ保持
+      @sessions = @sessions.last(Quiz::Constants::DISPLAY_SESSIONS_LIMIT) if @sessions.length > Quiz::Constants::DISPLAY_SESSIONS_LIMIT
       
       save_sessions
     end
     
     # 直近のセッション記録を取得
-    def recent_sessions(count = 10)
+    def recent_sessions(count = Quiz::Constants::DISPLAY_SESSIONS_LIMIT)
       @sessions.last(count).reverse
     end
     
@@ -164,7 +164,7 @@ module Quiz
         json_data = storage.getItem(key)
         return [] if data_empty?(json_data)
         
-        parse_json_array(json_data, &parse_block)
+        JsonParser.parse_json_array(json_data, &parse_block)
       rescue => e
         log_error("データ読み込みエラー (#{key}):", e)
         []
@@ -187,18 +187,6 @@ module Quiz
       json_data.nil? || json_data.to_s == "null"
     end
     
-    # JSON配列をパース
-    def parse_json_array(json_data, &parse_block)
-      parsed = JS.global[:JSON].parse(json_data)
-      array_length = parsed[:length].to_i
-      results = []
-      
-      0.upto(array_length - 1) do |i|
-        results << parse_block.call(parsed[i])
-      end
-      
-      results
-    end
     
     # 記録データをパース
     def parse_record(record_js)

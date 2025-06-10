@@ -14,15 +14,27 @@ module Quiz
     
     # 答えが正しいかチェック
     def correct?(user_answer)
-      user_answer.strip == @answer
+      normalize_answer(user_answer) == normalize_answer(@answer)
     end
     
     # エラーメッセージを生成
     def error_message
-      message = [@answer]
-      message << @kana if @kana && !@kana.empty?
-      message << @tips if @tips && !@tips.empty?
-      message.join("<br>")
+      message_parts = [@answer]
+      message_parts << @kana if present?(@kana)
+      message_parts << @tips if present?(@tips)
+      message_parts.join("<br>")
+    end
+    
+    private
+    
+    # 回答を正規化（前後の空白を除去）
+    def normalize_answer(answer)
+      answer.to_s.strip
+    end
+    
+    # 値が存在するかチェック
+    def present?(value)
+      value && !value.empty?
     end
   end
   
@@ -35,54 +47,44 @@ module Quiz
     
     # クイズデータを読み込む
     def load_quiz_data
-      # fetchメソッドを使用してJSONデータを取得
-      window = JS.global[:window]
-      
-      promise = window.fetch("./quiz.json")
-        .then { |response| response.json() }
-        .then { |data| 
-          # JavaScriptの配列を適切に処理
-          array_length = data[:length].to_i
-          @quiz_data = []
-          
-          0.upto(array_length - 1) do |i|
-            quiz_js = data[i]
-            quiz_hash = {
-              "question" => quiz_js[:question].to_s,
-              "answer" => quiz_js[:answer].to_s
-            }
-            
-            # kanaとtipsは存在する場合のみ追加
-            kana_value = quiz_js[:kana]
-            tips_value = quiz_js[:tips]
-            
-            # undefinedやnullでない場合のみ値を設定
-            if kana_value && kana_value.to_s != "undefined" && kana_value.to_s != ""
-              quiz_hash["kana"] = kana_value.to_s
-            end
-            
-            if tips_value && tips_value.to_s != "undefined" && tips_value.to_s != ""
-              quiz_hash["tips"] = tips_value.to_s
-            end
-            @quiz_data << Quiz.new(quiz_hash)
-          end
-          
-          true
-        }
-        .catch { |error|
-          JS.global[:console].error("クイズデータの読み込み中にエラーが発生しました:", error)
-          false
-        }
-        
-      promise
+      fetch_quiz_json
+        .then { |data| parse_and_store_data(data) }
+        .catch { |error| handle_load_error(error) }
     end
     
     # ランダムにクイズを選択
-    def get_random_quizzes(count = 10)
+    def get_random_quizzes(count = Quiz::Constants::SESSION_SIZE)
       return [] if @quiz_data.empty?
       
-      # Rubyの標準的なシャッフルとスライス
       @quiz_data.sample(count)
+    end
+    
+    # データが読み込まれているかチェック
+    def data_loaded?
+      !@quiz_data.empty?
+    end
+    
+    private
+    
+    # JSONデータをフェッチ
+    def fetch_quiz_json
+      JS.global[:window].fetch("./quiz.json")
+        .then { |response| response.json() }
+    end
+    
+    # データを解析して保存
+    def parse_and_store_data(data)
+      @quiz_data = JsonParser.parse_js_array(data) do |quiz_js|
+        quiz_hash = JsonParser.parse_quiz_data(quiz_js)
+        Quiz.new(quiz_hash)
+      end
+      true
+    end
+    
+    # 読み込みエラーを処理
+    def handle_load_error(error)
+      JS.global[:console].error("クイズデータの読み込み中にエラーが発生しました:", error)
+      false
     end
   end
 end

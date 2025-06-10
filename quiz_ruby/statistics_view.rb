@@ -194,7 +194,7 @@ module Quiz
       records_list = document.getElementById("records-list")
       return unless records_list && records_list.to_s != "null"
       
-      recent_sessions = @statistics.recent_sessions(10)
+      recent_sessions = @statistics.recent_sessions(Quiz::Constants::DISPLAY_SESSIONS_LIMIT)
       records_list[:innerHTML] = ""
       
       if recent_sessions.empty?
@@ -216,7 +216,7 @@ module Quiz
     def render_session_records(parent, sessions)
       sessions.each do |session|
         create_elem("div", parent) do |div|
-          score_class = session[:percentage] >= 70 ? 'good-session' : 'poor-session'
+          score_class = session[:percentage] >= Quiz::Constants::GOOD_SCORE_THRESHOLD ? 'good-session' : 'poor-session'
           div[:className] = "session-item #{score_class}"
           
           date = JS.global[:Date].new(session[:timestamp])
@@ -267,14 +267,14 @@ module Quiz
     # 成績判定
     def calculate_grade(percentage)
       case percentage
-      when 90..100
-        { text: "素晴らしい！", class: "excellent" }
-      when 70..89
-        { text: "よくできました", class: "good" }
-      when 50..69
-        { text: "もう少し", class: "fair" }
+      when Quiz::Constants::GRADE_EXCELLENT
+        Quiz::Constants::GRADE_CONFIG[:excellent]
+      when Quiz::Constants::GRADE_GOOD
+        Quiz::Constants::GRADE_CONFIG[:good]
+      when Quiz::Constants::GRADE_FAIR
+        Quiz::Constants::GRADE_CONFIG[:fair]
       else
-        { text: "頑張りましょう", class: "poor" }
+        Quiz::Constants::GRADE_CONFIG[:poor]
       end
     end
     
