@@ -46,25 +46,23 @@ module RootBox
         # 入力値の初期化
         @ticket_num = nil
         @stone_num = nil
-        
+
         # 入力値の検証
         all_errors = []
-        all_errors.concat(validate_numeric_input(ticket_num, "チケット数", min: 0, max: 999999))
-        all_errors.concat(validate_numeric_input(stone_num, "ダイヤ数", min: 0, max: 999999))
-        
+        all_errors.concat(validate_numeric_input(ticket_num, "チケット数", min: 0, max: 999_999))
+        all_errors.concat(validate_numeric_input(stone_num, "ダイヤ数", min: 0, max: 999_999))
+
         # 目標値の検証
         targets.each_with_index do |target, i|
-          if target > 0
-            all_errors.concat(validate_numeric_input(target, "目標#{i + 1}", min: 1, max: 999999))
-          end
+          all_errors.concat(validate_numeric_input(target, "目標#{i + 1}", min: 1, max: 999_999)) if target.positive?
         end
-        
+
         # エラーがある場合はエラー表示
         if all_errors.any?
           show_error(all_errors.join("\n"))
           return
         end
-        
+
         result = init_result
 
         create_result(result)
