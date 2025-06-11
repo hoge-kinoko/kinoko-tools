@@ -18,7 +18,7 @@
 - ふりがな付きで読みやすい
 - 統計機能で学習進捗を確認
 - 正答率や過去の記録を表示
-- [クイズツールを使う](https://hoge-kinoko.github.io/kinoko-tools/quiz_ruby/)
+- [クイズツールを使う](https://hoge-kinoko.github.io/kinoko-tools/quiz/)
 
 
 ## 📱 対応環境
@@ -38,7 +38,6 @@
 
 - **フロントエンド**: HTML5, CSS3, JavaScript
 - **UI フレームワーク**: Materialize CSS
-- **Ruby WASM**: ブラウザ内でRuby実行
 - **データ保存**: LocalStorage（統計データ）
 - **ホスティング**: GitHub Pages
 
