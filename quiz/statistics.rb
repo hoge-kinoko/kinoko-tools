@@ -24,7 +24,7 @@ module Quiz
       @records << answer_record
 
       # 上限を超える場合は古い記録を削除
-      @records = @records.last(Quiz::Constants::RECORDS_LIMIT) if @records.length > Quiz::Constants::RECORDS_LIMIT
+      @records = @records.last(::Quiz::Constants::RECORDS_LIMIT) if @records.length > ::Quiz::Constants::RECORDS_LIMIT
 
       save_records
     end
@@ -71,12 +71,12 @@ module Quiz
 
     # セッションが完了したかチェック
     def session_completed?
-      @current_session.length >= Quiz::Constants::SESSION_SIZE
+      @current_session.length >= ::Quiz::Constants::SESSION_SIZE
     end
 
     # 現在のセッションを完了として記録
     def complete_current_session
-      return if @current_session.length != Quiz::Constants::SESSION_SIZE
+      return if @current_session.length != ::Quiz::Constants::SESSION_SIZE
 
       session_result = current_session_result
       session_data = {
@@ -89,15 +89,15 @@ module Quiz
       @sessions << session_data
 
       # 最新セッションのみ保持
-      if @sessions.length > Quiz::Constants::DISPLAY_SESSIONS_LIMIT
-        @sessions = @sessions.last(Quiz::Constants::DISPLAY_SESSIONS_LIMIT)
+      if @sessions.length > ::Quiz::Constants::DISPLAY_SESSIONS_LIMIT
+        @sessions = @sessions.last(::Quiz::Constants::DISPLAY_SESSIONS_LIMIT)
       end
 
       save_sessions
     end
 
     # 直近のセッション記録を取得
-    def recent_sessions(count = Quiz::Constants::DISPLAY_SESSIONS_LIMIT)
+    def recent_sessions(count = ::Quiz::Constants::DISPLAY_SESSIONS_LIMIT)
       @sessions.last(count).reverse
     end
 
