@@ -53,7 +53,7 @@ module Quiz
     end
 
     # ランダムにクイズを選択
-    def get_random_quizzes(count = Quiz::Constants::SESSION_SIZE)
+    def get_random_quizzes(count = Constants::SESSION_SIZE)
       return [] if @quiz_data.empty?
 
       @quiz_data.sample(count)

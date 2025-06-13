@@ -194,7 +194,7 @@ module Quiz
       records_list = document.getElementById("records-list")
       return unless records_list && records_list.to_s != "null"
 
-      recent_sessions = @statistics.recent_sessions(::Quiz::Constants::DISPLAY_SESSIONS_LIMIT)
+      recent_sessions = @statistics.recent_sessions(Constants::DISPLAY_SESSIONS_LIMIT)
       records_list[:innerHTML] = ""
 
       if recent_sessions.empty?
@@ -216,7 +216,7 @@ module Quiz
     def render_session_records(parent, sessions)
       sessions.each do |session|
         create_elem("div", parent) do |div|
-          score_class = session[:percentage] >= ::Quiz::Constants::GOOD_SCORE_THRESHOLD ? "good-session" : "poor-session"
+          score_class = session[:percentage] >= Constants::GOOD_SCORE_THRESHOLD ? "good-session" : "poor-session"
           div[:className] = "session-item #{score_class}"
 
           date = JS.global[:Date].new(session[:timestamp])
@@ -256,7 +256,7 @@ module Quiz
         summary[:innerHTML] = <<~HTML
           <div class="result-score">
             <span class="score-number">#{stats[:correct]}</span>
-            <span class="score-total">/#{::Quiz::Constants::SESSION_SIZE}問正解</span>
+            <span class="score-total">/#{Constants::SESSION_SIZE}問正解</span>
           </div>
           <div class="result-percentage">正答率: #{percentage}%</div>
           <div class="result-grade #{grade[:class]}">#{grade[:text]}</div>
@@ -267,14 +267,14 @@ module Quiz
     # 成績判定
     def calculate_grade(percentage)
       case percentage
-      when ::Quiz::Constants::GRADE_EXCELLENT
-        ::Quiz::Constants::GRADE_CONFIG[:excellent]
-      when ::Quiz::Constants::GRADE_GOOD
-        ::Quiz::Constants::GRADE_CONFIG[:good]
-      when ::Quiz::Constants::GRADE_FAIR
-        ::Quiz::Constants::GRADE_CONFIG[:fair]
+      when Constants::GRADE_EXCELLENT
+        Constants::GRADE_CONFIG[:excellent]
+      when Constants::GRADE_GOOD
+        Constants::GRADE_CONFIG[:good]
+      when Constants::GRADE_FAIR
+        Constants::GRADE_CONFIG[:fair]
       else
-        ::Quiz::Constants::GRADE_CONFIG[:poor]
+        Constants::GRADE_CONFIG[:poor]
       end
     end
 

@@ -44,7 +44,7 @@ module Quiz
       @statistics_view.clear_result_display
 
       # ランダムにセッション分のクイズを選択
-      @current_quizzes = @quiz_manager.get_random_quizzes(Quiz::Constants::SESSION_SIZE)
+      @current_quizzes = @quiz_manager.get_random_quizzes(Constants::SESSION_SIZE)
 
       # 各クイズを表示
       @current_quizzes.each_with_index do |quiz, index|
@@ -173,7 +173,7 @@ module Quiz
       @answered_count += 1
 
       # セッション分すべて回答した場合はリザルトを表示
-      if @answered_count >= Quiz::Constants::SESSION_SIZE
+      if @answered_count >= Constants::SESSION_SIZE
         @statistics.complete_current_session
         @statistics_view.show_session_result
       end
