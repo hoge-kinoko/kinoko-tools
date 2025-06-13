@@ -1,0 +1,72 @@
+/* レスポンシブ対応 */
+
+/* タブレット・スマートフォン対応 */
+@media (max-width: 600px) {
+    .quiz-container {
+        padding: 10px;
+    }
+    
+    .question {
+        padding: 16px;
+    }
+    
+    .input-container {
+        flex-direction: column;
+        width: 100%;
+    }
+    
+    .answerTextBox {
+        width: 100%;
+    }
+    
+    .answerButton {
+        width: 100%;
+    }
+    
+    /* 統計部分のレスポンシブ */
+    .stats-summary {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .stat-item {
+        text-align: center;
+    }
+    
+    .session-item {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto auto;
+        gap: 8px;
+        text-align: center;
+    }
+    
+    .session-score {
+        font-size: 1.2rem;
+    }
+    
+    .session-date {
+        text-align: center;
+    }
+    
+    /* 結果表示のレスポンシブ */
+    .result-score {
+        font-size: 1.5rem;
+    }
+    
+    .score-number {
+        font-size: 2.5rem;
+    }
+    
+    /* ダイアログのレスポンシブ */
+    .reset-dialog {
+        margin: 20px;
+    }
+    
+    .reset-dialog-buttons {
+        flex-direction: column;
+    }
+    
+    .reset-dialog-button {
+        width: 100%;
+    }
+}

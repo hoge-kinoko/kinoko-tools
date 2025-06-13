@@ -1,69 +1,24 @@
-@charset "UTF-8";
+/* モジュール化されたクイズツールのスタイル */
 
-body {
-    font-family: Arial, sans-serif;
+@import url('./styles/base.css');
+@import url('./styles/quiz.css');
+@import url('./styles/statistics.css');
+@import url('./styles/results.css');
+@import url('./styles/controls.css');
+@import url('./styles/responsive.css');
+
+/* プログレスバー（将来の実装用） */
+.progress-bar {
+    height: 4px;
+    background-color: #e0e0e0;
+    border-radius: 2px;
+    margin-bottom: 30px;
+    overflow: hidden;
 }
 
-.quiz-container {
-    max-width: 600px;
-    margin: 0 auto;
-    text-align: center;
-}
-
-.question {
-    border: 0.25rem solid tan;
-    border-radius: 240px 15px 100px 15px / 15px 200px 15px 185px;
-    background-color: lemonchiffon;
-    padding: 1rem;
-    margin: 1rem;
-}
-
-.questionText {
-    border-bottom: dotted 6px tan;
-}
-
-.answer {
-    margin-top: 0.5rem;
-}
-
-.result {
-    font-size: 1.5rem;
-    margin-top: 1rem;
-    font-weight: bold;
-}
-
-.failed {
-    color: #6E85B7;
-}
-
-.successful {
-    color: #B33030;
-}
-
-.answerButton {
-    margin-left: 1em;
-    border: 2px solid tan;
-    border-radius: 25px;
-    background-color: tan;
-    line-height: 1.5;
-}
-
-.answerTextBox {
-    border: 2px solid tan;
-    border-radius: 25px;
-    background-color: #f7f7f7;
-    font-size: 1em;
-    line-height: 1.5;
-    text-align: center;
-}
-
-#reset-button {
-    color: dimgray;
-    font-weight: bold;
-    font-size: 2em;
-    border: 2px solid tan;
-    border-radius: 50px;
-    background-color: tan;
-    line-height: 1.5;
-    padding: 0.5rem;
+.progress-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #ffa726 0%, #ff9800 100%);
+    border-radius: 2px;
+    transition: width 0.3s ease;
 }

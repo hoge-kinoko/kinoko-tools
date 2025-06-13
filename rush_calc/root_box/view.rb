@@ -10,11 +10,11 @@ module RootBox
     private
 
     def ticket_num
-      document.getElementById("ticket_num")[:value].to_i
+      @ticket_num ||= document.getElementById("ticket_num")[:value]
     end
 
     def stone_num
-      document.getElementById("stone_num")[:value].to_i
+      @stone_num ||= document.getElementById("stone_num")[:value]
     end
 
     def level
@@ -28,7 +28,7 @@ module RootBox
     end
 
     def calculator
-      RootBox::Calculator.new(ticket_num, stone_num, level)
+      RootBox::Calculator.new(ticket_num.to_i, stone_num.to_i, level)
     end
 
     def init_result
@@ -43,6 +43,26 @@ module RootBox
     def add_calc_btn_event
       button = document.getElementById("calc_btn")
       button.addEventListener("click") do
+        # 入力値の初期化
+        @ticket_num = nil
+        @stone_num = nil
+
+        # 入力値の検証
+        all_errors = []
+        all_errors.concat(validate_numeric_input(ticket_num, "チケット数", min: 0, max: 999_999))
+        all_errors.concat(validate_numeric_input(stone_num, "ダイヤ数", min: 0, max: 999_999))
+
+        # 目標値の検証
+        targets.each_with_index do |target, i|
+          all_errors.concat(validate_numeric_input(target, "目標#{i + 1}", min: 1, max: 999_999)) if target.positive?
+        end
+
+        # エラーがある場合はエラー表示
+        if all_errors.any?
+          show_error(all_errors.join("\n"))
+          return
+        end
+
         result = init_result
 
         create_result(result)
@@ -60,8 +80,8 @@ module RootBox
         span[:innerText] = "計算結果"
       end
 
-      ticket_result = @calculator.calc_by_cost(RootBox::Calculator::TICKET_COURSES, ticket_num)
-      stone_result = @calculator.calc_by_cost(RootBox::Calculator::STONE_COURSES, stone_num)
+      ticket_result = @calculator.calc_by_cost(RootBox::Calculator::TICKET_COURSES, ticket_num.to_i)
+      stone_result = @calculator.calc_by_cost(RootBox::Calculator::STONE_COURSES, stone_num.to_i)
 
       table = create_elem("table", content)
       tbody = create_elem("tbody", table)

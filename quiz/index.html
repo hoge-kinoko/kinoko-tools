@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>きのでんクイズ練習</title>
     <link rel="stylesheet" href="./index.css">
+    <script src="../components/base.js"></script>
 </head>
 <body>
 <div id="header"></div>
@@ -13,10 +14,22 @@
     <h1 class="col s12">きのでんクイズ練習</h1>
     <div class="quiz-container">
         <div id="quiz"></div>
-        <button id="reset-button">リセット</button>
     </div>
 </article>
 
-<script src="./index.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@ruby/3.3-wasm-wasi@latest/dist/browser.script.iife.js"></script>
+
+<script type="text/ruby" src="../rush_calc/view.rb"></script>
+<script type="text/ruby" src="../components/constants.rb"></script>
+<script type="text/ruby" src="./constants.rb"></script>
+<script type="text/ruby" src="./json_parser.rb"></script>
+<script type="text/ruby" src="./statistics.rb"></script>
+<script type="text/ruby" src="./statistics_view.rb"></script>
+<script type="text/ruby" src="./quiz.rb"></script>
+<script type="text/ruby" src="./view.rb"></script>
+<script type="text/ruby">
+    Quiz::View.new
+</script>
+
 </body>
 </html>

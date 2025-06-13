@@ -1,0 +1,97 @@
+/* 結果表示関連のスタイル */
+
+/* セッション結果 */
+.session-result {
+    margin-bottom: 20px;
+}
+
+.session-result.completed {
+    animation: resultSlideIn 0.5s ease forwards;
+}
+
+.result-card {
+    background: white;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+    border: 2px solid #ffa726;
+    text-align: center;
+}
+
+.result-card h3 {
+    margin: 0 0 20px 0;
+    color: #333;
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+
+.result-summary {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    align-items: center;
+}
+
+.result-score {
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+    font-size: 2rem;
+    font-weight: bold;
+    color: #333;
+}
+
+.score-number {
+    color: #ffa726;
+    font-size: 3rem;
+}
+
+.score-total {
+    font-size: 1.2rem;
+    color: #666;
+}
+
+.result-percentage {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #495057;
+}
+
+.result-grade {
+    padding: 12px 24px;
+    border-radius: 25px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-top: 8px;
+}
+
+.result-grade.excellent {
+    background: linear-gradient(135deg, #4caf50, #66bb6a);
+    color: white;
+}
+
+.result-grade.good {
+    background: linear-gradient(135deg, #2196f3, #42a5f5);
+    color: white;
+}
+
+.result-grade.fair {
+    background: linear-gradient(135deg, #ff9800, #ffb74d);
+    color: white;
+}
+
+.result-grade.poor {
+    background: linear-gradient(135deg, #f44336, #ef5350);
+    color: white;
+}
+
+@keyframes resultSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(30px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
